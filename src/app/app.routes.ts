@@ -5,9 +5,8 @@ import { MenuInicioComponent } from './menu-inicio/menu-inicio.component';
 import { authGuard, guestGuard } from './auth/guard/auth.guard';
 import { ListadoCursosComponent } from './courses/pages/listado-cursos/listado-cursos.component';
 import { DetalleCursoComponent } from './courses/pages/detalle-curso/detalle-curso.component';
-import { ListadoLeccionesComponent } from './courses/pages/listado-lecciones/listado-lecciones.component';
 import { DetalleLeccionComponent } from './courses/pages/detalle-leccion/detalle-leccion.component';
-
+import { GuardarCursoComponent } from './courses/pages/guardar-curso/guardar-curso.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
@@ -32,9 +31,24 @@ export const routes: Routes = [
         component: ListadoCursosComponent,
       },
       {
+        path: 'cursos/nuevo',
+        title: 'Crear Curso',
+        component: GuardarCursoComponent,
+      },
+      {
+        path: 'cursos/editar/:idCurso',
+        title: 'Editar Curso',
+        component: GuardarCursoComponent,
+      },
+      {
         path: 'cursos/:idCurso',
         title: 'Curso',
         component: DetalleCursoComponent,
+      },
+      {
+        path: 'cursos/:idCurso/leccion/:idLeccion',
+        title: 'Leccion',
+        component: DetalleLeccionComponent,
       }
     ],
   },

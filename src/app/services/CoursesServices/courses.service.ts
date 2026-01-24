@@ -17,4 +17,25 @@ export class CoursesService {
     });
     return this.http.get<response>(url, { headers });
   }
+
+  crear(url: string, data: any): Observable<response> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+    return this.http.post<response>(url, data, { headers });
+  }
+
+  actualizar(url: string, data: any): Observable<response> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+    return this.http.put<response>(url, data, { headers });
+  }
+
+  eliminar(url: string): Observable<response> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+    return this.http.delete<response>(url, { headers });
+  }
 }
