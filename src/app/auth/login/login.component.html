@@ -1,0 +1,19 @@
+<form class="example-form" [formGroup]="formGroup" (ngSubmit)="loginSubmit()">
+  <mat-form-field class="example-full-width">
+    <mat-label>Usuario</mat-label>
+    <input type="text" matInput  [errorStateMatcher]="matcher" formControlName="username">
+    <mat-hint>Ingrese el usuario!</mat-hint>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Contraseña</mat-label>
+    <input type="password" matInput  [errorStateMatcher]="matcher" formControlName="password">
+    <mat-hint>Ingrese la contraseña!</mat-hint>
+
+  </mat-form-field>
+
+  <button type="submit" [disabled]="!formGroup.valid">Login</button>
+
+</form>
+

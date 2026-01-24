@@ -1,0 +1,22 @@
+<mat-sidenav-container  style="height: 100vh;">
+    <mat-sidenav mode="side" [opened]="opened" [style.width.px]="200">
+       <div style="padding: 20px;">
+        <mat-nav-list>
+            @for (item of navList; track item.label) {
+            <a mat-list-item [routerLink]="item.path">
+                <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+                <span matListItemTitle>{{item.label}}</span>
+            </a>
+            }
+        </mat-nav-list>
+       </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <button mat-icon-button (click)="open()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
