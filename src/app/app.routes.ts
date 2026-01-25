@@ -7,6 +7,7 @@ import { ListadoCursosComponent } from './courses/pages/listado-cursos/listado-c
 import { DetalleCursoComponent } from './courses/pages/detalle-curso/detalle-curso.component';
 import { DetalleLeccionComponent } from './courses/pages/detalle-leccion/detalle-leccion.component';
 import { GuardarCursoComponent } from './courses/pages/guardar-curso/guardar-curso.component';
+import { GuardarLeccionComponent } from './courses/pages/guardar-leccion/guardar-leccion.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
@@ -44,6 +45,16 @@ export const routes: Routes = [
         path: 'cursos/:idCurso',
         title: 'Curso',
         component: DetalleCursoComponent,
+      },
+      {
+        path: 'cursos/:idCurso/leccion/nueva',
+        title: 'Nueva Lección',
+        component: GuardarLeccionComponent,
+      },
+      {
+        path: 'cursos/:idCurso/leccion/editar/:idLeccion',
+        title: 'Editar Lección',
+        component: GuardarLeccionComponent,
       },
       {
         path: 'cursos/:idCurso/leccion/:idLeccion',
