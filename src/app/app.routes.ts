@@ -8,6 +8,8 @@ import { DetalleCursoComponent } from './courses/pages/detalle-curso/detalle-cur
 import { DetalleLeccionComponent } from './courses/pages/detalle-leccion/detalle-leccion.component';
 import { GuardarCursoComponent } from './courses/pages/guardar-curso/guardar-curso.component';
 import { GuardarLeccionComponent } from './courses/pages/guardar-leccion/guardar-leccion.component';
+import { ListarUsersComponent } from './users/listar-users/listar-users.component';
+import { GuardarUserComponent } from './users/guardar-user/guardar-user.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
@@ -60,6 +62,21 @@ export const routes: Routes = [
         path: 'cursos/:idCurso/leccion/:idLeccion',
         title: 'Leccion',
         component: DetalleLeccionComponent,
+      },
+      {
+        path:'usuarios',
+        title:'Usuarios',
+        component:ListarUsersComponent
+      },
+      {
+        path:'usuarios/crear',
+        title:'Crear Usuario',
+        component:GuardarUserComponent
+      },
+      {
+        path: 'usuarios/editar/:idUsuario',
+        title: 'Editar Usuario',
+        component: GuardarUserComponent
       }
     ],
   },

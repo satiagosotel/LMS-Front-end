@@ -50,6 +50,11 @@ export class MenuInicioComponent {
       icon: '',
       label: 'Cursos',
     },
+    {
+      path: '/usuarios',
+      icon:'',
+      label:'Usuarios'
+    }
   ];
 
   opened = false;
