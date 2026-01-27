@@ -14,7 +14,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { AuthResponse } from '../../interfaces/auth-response.model';
-import { AuthService } from '../../services/AuthServices/auth.service';
+import { AuthService } from '../AuthServices/auth.service';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
