@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CoursesService } from '../../../services/CoursesServices/courses.service';
 import { response } from '../../../interfaces/response.model';
 import { Leccion } from '../../../interfaces/leccion.interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CoursesService } from '../../CoursesServices/courses.service';
 
 @Component({
   selector: 'app-detalle-leccion',

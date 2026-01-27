@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CoursesService } from '../../../services/CoursesServices/courses.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { response } from '../../../interfaces/response.model';
 import { Leccion } from '../../../interfaces/leccion.interface';
@@ -7,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmarComponent } from '../../../components/confirmar/confirmar.component';
+import { CoursesService } from '../../CoursesServices/courses.service';
 
 @Component({
   selector: 'app-detalle-curso',

@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CoursesService } from '../../../services/CoursesServices/courses.service';
 import { response } from '../../../interfaces/response.model';
 import { Curso } from '../../../interfaces/curso.model';
 
@@ -9,6 +8,7 @@ import { MatButton } from "@angular/material/button";
 import { Router, RouterOutlet } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmarComponent } from '../../../components/confirmar/confirmar.component';
+import { CoursesService } from '../../CoursesServices/courses.service';
 
 @Component({
   selector: 'app-listado-cursos',
