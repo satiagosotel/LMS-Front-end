@@ -7,7 +7,8 @@ import { MatCheckbox } from "@angular/material/checkbox";
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatNavList, MatListItem, MatListItemIcon, MatListItemTitle } from '@angular/material/list';
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
+import { AuthService } from '../auth/AuthServices/auth.service';
 
 
 interface MenuItem {
@@ -39,20 +40,22 @@ interface MenuItem {
   styleUrl: './menu-inicio.component.css',
 })
 export class MenuInicioComponent {
+  constructor(private authService: AuthService, private router: Router) {}
+
   navList: MenuItem[] = [
     {
       path: '/inicio',
-      icon: '',
+      icon: 'home',
       label: 'Inicio',
     },
     {
       path: '/cursos',
-      icon: '',
+      icon: 'library_books',
       label: 'Cursos',
     },
     {
       path: '/usuarios',
-      icon:'',
+      icon:'supervised_user_circle',
       label:'Usuarios'
     }
   ];
@@ -61,5 +64,10 @@ export class MenuInicioComponent {
 
   open(): void {
     this.opened = !this.opened;
+  }
+
+  cerrarSesion(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

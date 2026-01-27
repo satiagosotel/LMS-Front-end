@@ -1,5 +1,5 @@
 <mat-sidenav-container  style="height: 100vh;">
-    <mat-sidenav mode="side" [opened]="opened" [style.width.px]="200">
+    <mat-sidenav mode="side" [opened]="opened" >
        <div style="padding: 20px;">
         <mat-nav-list>
             @for (item of navList; track item.label) {
@@ -8,6 +8,10 @@
                 <span matListItemTitle>{{item.label}}</span>
             </a>
             }
+            <a mat-list-item (click)="cerrarSesion()" style="cursor: pointer;">
+                <mat-icon matListItemIcon>logout</mat-icon>
+                <span matListItemTitle>Cerrar sesión</span>
+            </a>
         </mat-nav-list>
        </div>
     </mat-sidenav>
