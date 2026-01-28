@@ -15,7 +15,7 @@
       </mat-form-field>
 
       <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit" [disabled]="cursoForm.invalid">
+        <button style="margin-right: 10px;" mat-raised-button color="primary" type="submit" [disabled]="cursoForm.invalid">
           {{ esEdicion ? 'Actualizar' : 'Crear' }}
         </button>
         <button mat-button type="button" (click)="cancelar()">Cancelar</button>
