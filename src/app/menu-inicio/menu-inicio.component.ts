@@ -59,7 +59,9 @@ export class MenuInicioComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    const roles = JSON.stringify(this.authService.getRoles());
+    const roles = this.authService.getRolesFromStorage();
+
+    console.log(roles);
     if (roles.includes('ROLE_ADMIN')) {
       this.navList.push({
         path: '/usuarios',

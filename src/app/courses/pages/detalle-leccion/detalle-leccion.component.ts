@@ -1,14 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { response } from '../../../interfaces/response.model';
 import { Leccion } from '../../../interfaces/leccion.interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CoursesService } from '../../CoursesServices/courses.service';
+import { MatIcon } from "@angular/material/icon";
+import { MatButton } from "@angular/material/button";
+import { MatCardContent, MatCard } from "@angular/material/card";
 
 @Component({
   selector: 'app-detalle-leccion',
   standalone: true,
-  imports: [],
+  imports: [MatIcon, MatButton, MatCardContent, MatCard],
   templateUrl: './detalle-leccion.component.html',
   styleUrl: './detalle-leccion.component.css'
 })
@@ -17,6 +20,7 @@ export class DetalleLeccionComponent implements OnInit {
   route = inject(ActivatedRoute);
   cursosService = inject(CoursesService);
   sanitizer = inject(DomSanitizer);
+  router = inject(Router);
 
   idCurso!: string;
   idLeccion!: string;
@@ -35,6 +39,10 @@ export class DetalleLeccionComponent implements OnInit {
         }
       }
     );
+  }
+
+  goBack(){
+    this.router.navigate([`/cursos/${this.idCurso}`]);
   }
 
 }

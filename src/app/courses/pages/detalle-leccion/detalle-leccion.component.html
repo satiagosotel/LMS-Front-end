@@ -1,16 +1,15 @@
-@if (leccion) {
+
+<div style="margin:20px">
+  <button mat-button (click)="goBack()"><mat-icon>keyboard_arrow_left</mat-icon></button>
+</div>
+  @if (leccion) {
   <div class="leccion-container">
     <h1>{{ leccion.title }}</h1>
     <p>{{ leccion.description }}</p>
-
+  
     <div class="video-container">
-      <iframe
-        [src]="videoUrl"
-        width="800"
-        height="450"
-        frameborder="0"
-        allowfullscreen>
+      <iframe [src]="videoUrl" width="800" height="450" frameborder="0" allowfullscreen>
       </iframe>
     </div>
   </div>
-}
+  }

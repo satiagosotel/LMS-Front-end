@@ -1,6 +1,13 @@
 <div>
+
+    <div style="margin:20px">
+        <button mat-button (click)="goBack()"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    </div>
+
     <div style="margin: 20px;">
-        <button mat-raised-button color="primary" (click)="crearLeccion()">Crear Lección</button>
+        @if(roles.includes("ROLE_ADMIN")){
+            <button mat-raised-button color="primary" (click)="crearLeccion()">Crear Lección</button>
+        }
     </div>
 
     @for (leccion of lecciones; track leccion.id) {
@@ -15,8 +22,10 @@
             </mat-card-content>
             <mat-card-actions>
                 <button mat-button (click)="verLeccion(leccion.id)">Ver lección</button>
-                <button mat-button (click)="editarLeccion(leccion.id)">Editar</button>
+                @if (roles.includes("ROLE_ADMIN")) {
+                    <button mat-button (click)="editarLeccion(leccion.id)">Editar</button>
                 <button mat-button color="warn" (click)="eliminarLeccion(leccion.id)">Eliminar</button>
+                }
             </mat-card-actions>
         </mat-card>
     }

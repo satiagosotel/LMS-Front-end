@@ -9,23 +9,29 @@ import { Router, RouterOutlet } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmarComponent } from '../../../components/confirmar/confirmar.component';
 import { CoursesService } from '../../CoursesServices/courses.service';
+import { AuthService } from '../../../auth/AuthServices/auth.service';
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: 'app-listado-cursos',
   standalone: true,
-  imports: [MatCard, MatCardTitle, MatCardHeader, MatCardContent, MatActionList, MatButton, MatCardActions, RouterOutlet, MatDialogModule],
+  imports: [MatCard, MatCardTitle, MatCardHeader, MatCardContent, MatActionList, MatButton, MatCardActions, RouterOutlet, MatDialogModule, MatIcon],
   templateUrl: './listado-cursos.component.html',
   styleUrl: './listado-cursos.component.css',
 })
 export class ListadoCursosComponent implements OnInit {
   courseService = inject(CoursesService);
+  authService = inject(AuthService);
   router = inject(Router);
   dialog = inject(MatDialog);
 
+  roles: string[] = [];
 
   cursos!:Curso[];
 
   ngOnInit(): void {
+    this.roles = this.authService.getRolesFromStorage();
+
     this.courseService.listar('/api/courses').subscribe((res:response) => {
       if(res.status.match("SUCCESS")){
         this.cursos = res.data;

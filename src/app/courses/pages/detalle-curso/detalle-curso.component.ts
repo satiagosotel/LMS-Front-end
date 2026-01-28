@@ -7,11 +7,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmarComponent } from '../../../components/confirmar/confirmar.component';
 import { CoursesService } from '../../CoursesServices/courses.service';
+import { AuthService } from '../../../auth/AuthServices/auth.service';
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: 'app-detalle-curso',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, RouterLink, MatDialogModule],
+  imports: [MatCardModule, MatButtonModule, RouterLink, MatDialogModule, MatIcon],
   templateUrl: './detalle-curso.component.html',
   styleUrl: './detalle-curso.component.css'
 })
@@ -19,11 +21,13 @@ export class DetalleCursoComponent implements OnInit {
 
   cursosService = inject(CoursesService);
   route = inject(ActivatedRoute);
+    authService = inject(AuthService);
   router = inject(Router);
   dialog = inject(MatDialog);
 
   idCurso!: string;
   lecciones!: Leccion[];
+  roles: string[] = [];
 
   ngOnInit(): void {
     this.idCurso = this.route.snapshot.params['idCurso'];
@@ -31,6 +35,8 @@ export class DetalleCursoComponent implements OnInit {
   }
 
   cargarLecciones(): void {
+    this.roles = this.authService.getRolesFromStorage();
+
     this.cursosService.listar(`/api/courses/${this.idCurso}`).subscribe(
       (response: response) => {
         if (response.status == 'SUCCESS') {
@@ -71,5 +77,12 @@ export class DetalleCursoComponent implements OnInit {
         );
       }
     });
+
+    
+  }
+
+
+  goBack(){
+    this.router.navigate(['/cursos']);
   }
 }

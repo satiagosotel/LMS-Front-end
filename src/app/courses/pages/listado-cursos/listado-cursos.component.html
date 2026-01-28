@@ -1,6 +1,8 @@
 <div>
     <div style="margin: 20px;">
-        <button mat-raised-button color="primary" (click)="crearCurso()">Crear Curso</button>
+        @if (roles.includes("ROLE_ADMIN")) {
+            <button mat-raised-button color="primary" (click)="crearCurso()">Crear Curso</button>
+        }
     </div>
 
     @for (curso of cursos; track curso.id) {
@@ -15,8 +17,10 @@
             </mat-card-content>
             <mat-card-actions>
                 <button mat-button (click)="irCurso(curso.id)">Ver curso</button>
-                <button mat-button (click)="editarCurso(curso.id)">Editar</button>
-                <button mat-button color="warn" (click)="eliminarCurso(curso.id)">Eliminar</button>
+                @if(roles.includes("ROLE_ADMIN")){
+                    <button mat-button (click)="editarCurso(curso.id)">Editar</button>
+                    <button mat-button color="warn" (click)="eliminarCurso(curso.id)">Eliminar</button>
+                }
             </mat-card-actions>
         </mat-card>
     }

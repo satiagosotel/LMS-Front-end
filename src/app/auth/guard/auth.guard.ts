@@ -34,13 +34,10 @@ export const onlyAdmin: CanActivateFn = (routes,state) =>{
    const authService = inject(AuthService);
    const router = inject(Router);
 
-   const rolesJson = authService.getRoles();
-   if (rolesJson) {
-     const roles: string[] = JSON.parse(rolesJson);
-     if (roles.includes('ROLE_ADMIN')) {
-       return true;
-     }
-   }
+   const roles = authService.getRolesFromStorage();
+    if (roles.includes('ROLE_ADMIN')) {
+      return true;
+    }
 
    return router.createUrlTree(['/login']);
 }
