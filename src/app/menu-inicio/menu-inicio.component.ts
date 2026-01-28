@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
@@ -34,13 +34,16 @@ interface MenuItem {
     MatListItemIcon,
     MatListItemTitle,
     RouterLink,
-    RouterOutlet
-],
+    RouterOutlet,
+  ],
   templateUrl: './menu-inicio.component.html',
   styleUrl: './menu-inicio.component.css',
 })
-export class MenuInicioComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+export class MenuInicioComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   navList: MenuItem[] = [
     {
@@ -53,12 +56,18 @@ export class MenuInicioComponent {
       icon: 'library_books',
       label: 'Cursos',
     },
-    {
-      path: '/usuarios',
-      icon:'supervised_user_circle',
-      label:'Usuarios'
-    }
   ];
+
+  ngOnInit(): void {
+    const roles = JSON.stringify(this.authService.getRoles());
+    if (roles.includes('ROLE_ADMIN')) {
+      this.navList.push({
+        path: '/usuarios',
+        icon: 'supervised_user_circle',
+        label: 'Usuarios',
+      });
+    }
+  }
 
   opened = false;
 
