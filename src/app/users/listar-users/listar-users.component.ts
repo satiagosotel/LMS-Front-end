@@ -5,12 +5,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { UserService } from '../UsersService/user.service';
 
 @Component({
   selector: 'app-listar-users',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatTooltipModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatTooltipModule, MatPaginatorModule],
   templateUrl: './listar-users.component.html',
   styleUrl: './listar-users.component.css'
 })
@@ -23,19 +24,30 @@ export class ListarUsersComponent implements OnInit {
   router = inject(Router);
   usuarios: any[] = [];
 
+  currentPage = 0;
+  pageSize = 5;
+  totalElements = 0;
+
   ngOnInit(): void {
     this.listarUsuarios();
   }
 
   listarUsuarios(): void {
-    this.userService.listar(this.API_URL).subscribe({
+    this.userService.listar(this.API_URL, this.currentPage, this.pageSize).subscribe({
       next: (response) => {
-        this.usuarios = response.data;
+        this.usuarios = response.data.content;
+        this.totalElements = response.data.totalElements;
       },
       error: (error) => {
         console.error('Error al listar usuarios:', error);
       }
     });
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.listarUsuarios();
   }
 
   crearUsuario(): void {

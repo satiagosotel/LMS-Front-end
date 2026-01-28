@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { response } from '../../interfaces/response.model';
@@ -14,11 +14,16 @@ export class UserService {
   constructor(private http:HttpClient) { }
 
 
-  listar(url: string): Observable<response> {
+  listar(url: string,page:number=0,size:number=2): Observable<response> {
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${this.authService.getToken()}`
       });
-      return this.http.get<response>(url, { headers });
+
+      const params = new HttpParams()
+        .set('page', page.toString())
+        .set('size', size.toString());
+
+      return this.http.get<response>(url, { headers,params });
     }
   
     crear(url: string, data: any): Observable<response> {

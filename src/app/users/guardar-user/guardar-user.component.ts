@@ -63,14 +63,12 @@ export class GuardarUserComponent implements OnInit {
       (response: response) => {
         if (response.status == 'SUCCESS') {
           const userData = response.data;
-
           if (Array.isArray(userData.roles)) {
             userData.roles.forEach((rol: any) => {
               this.rolesSeleccionados.push(rol);
             })
           }
 
-          console.log(this.rolesSeleccionados);
           this.userForm.patchValue({
             username: userData.username,
             email: userData.email

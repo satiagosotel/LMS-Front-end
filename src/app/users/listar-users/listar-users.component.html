@@ -52,4 +52,13 @@
       <td class="mat-cell no-data" colspan="5">No hay usuarios registrados</td>
     </tr>
   </table>
+
+  <mat-paginator
+    [length]="totalElements"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage"
+    [pageSizeOptions]="[5,10,15]"
+    (page)="onPageChange($event)"
+    showFirstLastButtons>
+  </mat-paginator>
 </div>
