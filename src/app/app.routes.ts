@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MenuInicioComponent } from './menu-inicio/menu-inicio.component';
-import { authGuard, guestGuard } from './auth/guard/auth.guard';
+import { authGuard, guestGuard, onlyAdmin } from './auth/guard/auth.guard';
 import { ListadoCursosComponent } from './courses/pages/listado-cursos/listado-cursos.component';
 import { DetalleCursoComponent } from './courses/pages/detalle-curso/detalle-curso.component';
 import { DetalleLeccionComponent } from './courses/pages/detalle-leccion/detalle-leccion.component';
@@ -37,11 +37,13 @@ export const routes: Routes = [
         path: 'cursos/nuevo',
         title: 'Crear Curso',
         component: GuardarCursoComponent,
+        canActivate: [onlyAdmin],
       },
       {
         path: 'cursos/editar/:idCurso',
         title: 'Editar Curso',
         component: GuardarCursoComponent,
+        canActivate: [onlyAdmin],
       },
       {
         path: 'cursos/:idCurso',
@@ -52,11 +54,13 @@ export const routes: Routes = [
         path: 'cursos/:idCurso/leccion/nueva',
         title: 'Nueva Lección',
         component: GuardarLeccionComponent,
+        canActivate: [onlyAdmin],
       },
       {
         path: 'cursos/:idCurso/leccion/editar/:idLeccion',
         title: 'Editar Lección',
         component: GuardarLeccionComponent,
+        canActivate: [onlyAdmin],
       },
       {
         path: 'cursos/:idCurso/leccion/:idLeccion',
@@ -64,20 +68,23 @@ export const routes: Routes = [
         component: DetalleLeccionComponent,
       },
       {
-        path:'usuarios',
-        title:'Usuarios',
-        component:ListarUsersComponent
+        path: 'usuarios',
+        title: 'Usuarios',
+        component: ListarUsersComponent,
+        canActivate: [onlyAdmin],
       },
       {
-        path:'usuarios/crear',
-        title:'Crear Usuario',
-        component:GuardarUserComponent
+        path: 'usuarios/crear',
+        title: 'Crear Usuario',
+        component: GuardarUserComponent,
+        canActivate: [onlyAdmin],
       },
       {
         path: 'usuarios/editar/:idUsuario',
         title: 'Editar Usuario',
-        component: GuardarUserComponent
-      }
+        component: GuardarUserComponent,
+        canActivate: [onlyAdmin],
+      },
     ],
   },
 

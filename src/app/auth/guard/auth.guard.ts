@@ -14,6 +14,10 @@ export const authGuard: CanActivateFn = (route, state) => {
   return router.createUrlTree(['/login']);
 };
 
+
+/*
+  Verifica si el usuario ya tiene una sesion iniciada.
+*/
 export const guestGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
@@ -24,3 +28,19 @@ export const guestGuard: CanActivateFn = (route, state) => {
 
   return true;
 };
+
+
+export const onlyAdmin: CanActivateFn = (routes,state) =>{
+   const authService = inject(AuthService);
+   const router = inject(Router);
+
+   const rolesJson = authService.getRoles();
+   if (rolesJson) {
+     const roles: string[] = JSON.parse(rolesJson);
+     if (roles.includes('ROLE_ADMIN')) {
+       return true;
+     }
+   }
+
+   return router.createUrlTree(['/login']);
+}

@@ -1,4 +1,9 @@
 export interface AuthResponse {
-  token: string;
-  exp: number;
+  id: number;
+  username: string;
+  roles: string[];
+  jwt: {
+    token: string;
+    exp: number;
+  };
 }

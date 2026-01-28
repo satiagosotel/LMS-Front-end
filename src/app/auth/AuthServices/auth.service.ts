@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, shareReplay, tap } from 'rxjs';
 import { AuthResponse } from '../../interfaces/auth-response.model';
+import { response } from '../../interfaces/response.model';
 
 
 @Injectable({
@@ -14,14 +15,17 @@ export class AuthService {
   login(url: string, data: any): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(url, data).pipe(
       tap((authResult) => this.setSession(authResult)),
-      shareReplay()
+      shareReplay(),
     );
   }
 
   private setSession(authResult: AuthResponse): void {
-    const expiresAt = new Date(authResult.exp * 1000);
-    localStorage.setItem('id_token', authResult.token);
+    const expiresAt = new Date(authResult.jwt.exp);
+    localStorage.setItem('id_token', authResult.jwt.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem('user_id', authResult.id.toString());
+    localStorage.setItem('username', authResult.username);
+    localStorage.setItem('roles', JSON.stringify(authResult.roles));
   }
 
   getToken(): string | null {
@@ -31,6 +35,23 @@ export class AuthService {
   logout() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('username');
+    localStorage.removeItem('roles');
+  }
+
+  getUserId(): number | null {
+    const id = localStorage.getItem('user_id');
+    return id ? parseInt(id, 10) : null;
+  }
+
+  getUsername(): string | null {
+    return localStorage.getItem('username');
+  }
+
+  getRolesFromStorage(): string[] {
+    const roles = localStorage.getItem('roles');
+    return roles ? JSON.parse(roles) : [];
   }
 
   public isLoggedIn() {
@@ -52,5 +73,9 @@ export class AuthService {
     }
     const expiresAt = JSON.parse(expiration);
     return new Date(expiresAt);
+  }
+
+  getRoles(): string | null{
+    return localStorage.getItem('roles');
   }
 }
