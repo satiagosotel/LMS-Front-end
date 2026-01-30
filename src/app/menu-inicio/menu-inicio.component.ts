@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
@@ -61,7 +61,6 @@ export class MenuInicioComponent implements OnInit {
   ngOnInit(): void {
     const roles = this.authService.getRolesFromStorage();
 
-    console.log(roles);
     if (roles.includes('ROLE_ADMIN')) {
       this.navList.push({
         path: '/usuarios',
