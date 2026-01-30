@@ -1,0 +1,14 @@
+<div style="padding: 30px;">
+  <h2 mat-dialog-title class="alerta-titulo" [ngClass]="data.tipo">
+    <mat-icon>{{ getIcono() }}</mat-icon>
+    {{ data.titulo }}
+  </h2>
+  
+  <mat-dialog-content>
+    <p class="alerta-mensaje">{{ data.mensaje }}</p>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="cerrar()">Aceptar</button>
+  </mat-dialog-actions>
+</div>

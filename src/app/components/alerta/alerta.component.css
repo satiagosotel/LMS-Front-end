@@ -1,0 +1,32 @@
+.alerta-titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.alerta-titulo mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.alerta-titulo.exito mat-icon {
+  color: #4caf50;
+}
+
+.alerta-titulo.error mat-icon {
+  color: #f44336;
+}
+
+.alerta-titulo.advertencia mat-icon {
+  color: #ff9800;
+}
+
+.alerta-titulo.info mat-icon {
+  color: #2196f3;
+}
+
+.alerta-mensaje {
+  font-size: 16px;
+  margin: 16px 0;
+}
