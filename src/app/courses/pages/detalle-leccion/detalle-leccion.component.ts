@@ -6,12 +6,12 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CoursesService } from '../../CoursesServices/courses.service';
 import { MatIcon } from "@angular/material/icon";
 import { MatButton } from "@angular/material/button";
-import { MatCardContent, MatCard } from "@angular/material/card";
+import { MatCardContent, MatCard, MatCardActions, MatCardHeader, MatCardTitle, MatCardSubtitle } from "@angular/material/card";
 
 @Component({
   selector: 'app-detalle-leccion',
   standalone: true,
-  imports: [MatIcon, MatButton, MatCardContent, MatCard],
+  imports: [MatIcon, MatButton, MatCardContent, MatCard, MatCardActions, MatCardHeader, MatCardTitle, MatCardSubtitle],
   templateUrl: './detalle-leccion.component.html',
   styleUrl: './detalle-leccion.component.css'
 })
