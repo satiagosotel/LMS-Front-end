@@ -3,6 +3,11 @@
     width: 100%;
 }
 
+.mobile-layout {
+    display: flex;
+    flex-direction: column;
+}
+
 .formulario {
     background-color: aliceblue;
     width: 100%;

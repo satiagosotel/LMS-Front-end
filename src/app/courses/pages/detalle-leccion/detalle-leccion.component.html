@@ -1,9 +1,9 @@
 
 @if (leccion) {
-<mat-grid-list [cols]="isMobile ? 1 : 3" rowHeight="100%" >
-  <mat-grid-tile style="border-right: 1px solid rgb(163, 163, 163);" colspan="2">
-    <div class="panel">
-      <iframe [src]="videoUrl" width="100%" height="650" frameborder="0" allowfullscreen>
+ @if(isMobile){
+  <div class="mobile-layout">
+    <div class="panel" style="border-bottom: 1px solid rgb(163, 163, 163);">
+      <iframe [src]="videoUrl" width="100%" style="height: 60vh;" frameborder="0" allowfullscreen>
       </iframe>
       <mat-card-header style="border-bottom: 1px solid rgb(163, 163, 163);">
         <mat-card-title>
@@ -14,20 +14,41 @@
         </mat-card-subtitle>
       </mat-card-header>
     </div>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <div class="panel">
-      <mat-card>
-        <mat-card-actions>
-          <button mat-flat-button color="accent">Aplicar examen</button>
-        </mat-card-actions>
+    <div style="height: 100vh;">
+      <button mat-flat-button color="accent" style="border-radius: 0;">Aplicar examen</button>
+      <div style="width: 100%;background-color: aliceblue;" >
+        <div style="height: 300px;">
+          Examen
+        </div>
+      </div>
+    </div>
+  </div>
+
+ }@else {
+  <mat-grid-list [cols]="3" rowHeight="fit" style="height: 100vh;">
+    <mat-grid-tile style="border-right: 1px solid rgb(163, 163, 163);" [colspan]="2">
+      <div class="panel">
+        <iframe [src]="videoUrl" width="100%" style="height: 60vh;" frameborder="0" allowfullscreen>
+        </iframe>
+        <mat-card-header style="border-bottom: 1px solid rgb(163, 163, 163);">
+          <mat-card-title>
+            <h1>{{ leccion.title }}</h1>
+          </mat-card-title>
+          <mat-card-subtitle>
+            <p>{{ leccion.description }}</p>
+          </mat-card-subtitle>
+        </mat-card-header>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="panel">
+        <button mat-flat-button color="accent" style="border-radius: 0;">Aplicar examen</button>
         <div class="formulario">
         </div>
-        
-      </mat-card>
-    </div>
-  </mat-grid-tile>
-</mat-grid-list>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+ }
 
 }
 
