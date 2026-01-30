@@ -1,25 +1,32 @@
 <mat-sidenav-container  style="height: 100vh;">
     <mat-sidenav mode="side" [opened]="opened" >
-       <div style="padding: 20px;">
-        <mat-nav-list>
-            @for (item of navList; track item.label) {
-            <a mat-list-item [routerLink]="item.path">
-                <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-                <span matListItemTitle>{{item.label}}</span>
-            </a>
-            }
-            <a mat-list-item (click)="cerrarSesion()" style="cursor: pointer;">
-                <mat-icon matListItemIcon>logout</mat-icon>
-                <span matListItemTitle>Cerrar sesión</span>
-            </a>
+       <div style="padding: 20px;height: 100%;box-sizing: border-box;">
+        <mat-nav-list style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
+            <div>
+                @for (item of navList; track item.label) {
+                <a mat-list-item [routerLink]="item.path">
+                    <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+                    <span matListItemTitle>{{item.label}}</span>
+                </a>
+                }
+            </div>
+            <div>
+                <a mat-list-item (click)="cerrarSesion()" style="cursor: pointer;">
+                    <mat-icon matListItemIcon>logout</mat-icon>
+                    <span matListItemTitle>Cerrar sesión</span>
+                </a>
+            </div>
         </mat-nav-list>
        </div>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar>
+        <mat-toolbar style="display: flex;justify-content: space-between;">
             <button mat-icon-button (click)="open()">
                 <mat-icon>menu</mat-icon>
             </button>
+            <mat-card-title>
+                <h1>Procard</h1>
+            </mat-card-title>
         </mat-toolbar>
         <router-outlet></router-outlet>
     </mat-sidenav-content>

@@ -9,6 +9,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { MatNavList, MatListItem, MatListItemIcon, MatListItemTitle } from '@angular/material/list';
 import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { AuthService } from '../auth/AuthServices/auth.service';
+import { MatCardModule } from "@angular/material/card";
 
 
 interface MenuItem {
@@ -35,7 +36,8 @@ interface MenuItem {
     MatListItemTitle,
     RouterLink,
     RouterOutlet,
-  ],
+    MatCardModule
+],
   templateUrl: './menu-inicio.component.html',
   styleUrl: './menu-inicio.component.css',
 })
