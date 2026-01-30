@@ -1,10 +1,11 @@
 
-<div style="margin:20px">
-  <button mat-flat-button color="warn" (click)="goBack()"><mat-icon>keyboard_arrow_left</mat-icon> Volver</button>
-</div>
-  @if (leccion) {
-  <mat-card style="margin: 20px;">
-      <mat-card-header>
+@if (leccion) {
+<mat-grid-list [cols]="isMobile ? 1 : 3" rowHeight="100%" >
+  <mat-grid-tile style="border-right: 1px solid rgb(163, 163, 163);" colspan="2">
+    <div class="panel">
+      <iframe [src]="videoUrl" width="100%" height="650" frameborder="0" allowfullscreen>
+      </iframe>
+      <mat-card-header style="border-bottom: 1px solid rgb(163, 163, 163);">
         <mat-card-title>
           <h1>{{ leccion.title }}</h1>
         </mat-card-title>
@@ -12,11 +13,22 @@
           <p>{{ leccion.description }}</p>
         </mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content>
-        <div class="video-container">
-          <iframe [src]="videoUrl" width="800" height="450" frameborder="0" allowfullscreen>
-          </iframe>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="panel">
+      <mat-card>
+        <mat-card-actions>
+          <button mat-flat-button color="accent">Aplicar examen</button>
+        </mat-card-actions>
+        <div class="formulario">
         </div>
-      </mat-card-content>
-  </mat-card>
-  }
+        
+      </mat-card>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+}
+
+  
