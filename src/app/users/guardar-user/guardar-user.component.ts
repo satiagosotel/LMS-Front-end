@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertaComponent, AlertaData } from '../../components/alerta/alerta.component';
 
 @Component({
   selector: 'app-guardar-user',
@@ -20,15 +22,14 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   templateUrl: './guardar-user.component.html',
-  styleUrl: './guardar-user.component.css'
+  styleUrl: './guardar-user.component.css',
 })
 export class GuardarUserComponent implements OnInit {
-
   private readonly API_URL = 'api/admin/users';
-
+  dialog = inject(MatDialog);
   fb = inject(FormBuilder);
   route = inject(ActivatedRoute);
   router = inject(Router);
@@ -40,7 +41,7 @@ export class GuardarUserComponent implements OnInit {
 
   roles = [
     { value: { id: 2, name: 'ROLE_USER' }, label: 'Usuario' },
-    { value: { id: 1, name: 'ROLE_ADMIN' }, label: 'Administrador' }
+    { value: { id: 1, name: 'ROLE_ADMIN' }, label: 'Administrador' },
   ];
   rolesSeleccionados: any[] = [];
 
@@ -50,7 +51,7 @@ export class GuardarUserComponent implements OnInit {
     this.userForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', this.esEdicion ? [] : Validators.required]
+      password: ['', this.esEdicion ? [] : Validators.required],
     });
 
     if (this.esEdicion) {
@@ -59,23 +60,23 @@ export class GuardarUserComponent implements OnInit {
   }
 
   cargarUser(): void {
-    this.userService.listar(`${this.API_URL}/${this.idUser}`).subscribe(
-      (response: response) => {
+    this.userService
+      .listar(`${this.API_URL}/${this.idUser}`)
+      .subscribe((response: response) => {
         if (response.status == 'SUCCESS') {
           const userData = response.data;
           if (Array.isArray(userData.roles)) {
             userData.roles.forEach((rol: any) => {
               this.rolesSeleccionados.push(rol);
-            })
+            });
           }
 
           this.userForm.patchValue({
             username: userData.username,
-            email: userData.email
+            email: userData.email,
           });
         }
-      }
-    );
+      });
   }
 
   toggleRol(rol: any): void {
@@ -89,8 +90,7 @@ export class GuardarUserComponent implements OnInit {
 
   isRolSeleccionado(rol: any): boolean {
     for (let i = 0; i < this.rolesSeleccionados.length; i++) {
-      if (this.rolesSeleccionados[i].name == rol.name)
-        return true;
+      if (this.rolesSeleccionados[i].name == rol.name) return true;
     }
     return false;
   }
@@ -100,29 +100,45 @@ export class GuardarUserComponent implements OnInit {
 
     const data = {
       ...this.userForm.value,
-      roles: this.rolesSeleccionados
+      roles: this.rolesSeleccionados,
+    };
+
+    (response: response) => {
+      if (response.status == 'SUCCESS') {
+      }
     };
 
     if (this.esEdicion) {
-      this.userService.actualizar(`${this.API_URL}/update/${this.idUser}`, data).subscribe(
-        (response: response) => {
-          if (response.status == 'SUCCESS') {
+      this.userService
+        .actualizar(`${this.API_URL}/update/${this.idUser}`, data)
+        .subscribe({
+          next:(response)=>{
             this.router.navigate(['/usuarios']);
+            this.mostrarAlerta('Exito', "Exito", 'exito');
+          },
+          error:(error)=>{
+            console.error(error);
+            this.mostrarAlerta('Error', error.error.data, 'error');
           }
-        }
-      );
+        });
     } else {
-      this.userService.crear(`${this.API_URL}/create`, data).subscribe(
-        (response: response) => {
+      this.userService
+        .crear(`${this.API_URL}/create`, data)
+        .subscribe((response: response) => {
           if (response.status == 'SUCCESS') {
             this.router.navigate(['/usuarios']);
           }
-        }
-      );
+        });
     }
   }
 
   cancelar(): void {
     this.router.navigate(['/usuarios']);
+  }
+
+  mostrarAlerta(titulo: string, mensaje: string, tipo: string): void {
+    this.dialog.open(AlertaComponent, {
+      data: { titulo, mensaje, tipo } as AlertaData,
+    });
   }
 }

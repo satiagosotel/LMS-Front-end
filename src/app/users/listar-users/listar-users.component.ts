@@ -6,7 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../UsersService/user.service';
+import { AlertaComponent, AlertaData } from '../../components/alerta/alerta.component';
 
 @Component({
   selector: 'app-listar-users',
@@ -22,6 +24,7 @@ export class ListarUsersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'usuario', 'email', 'roles', 'acciones'];
   userService = inject(UserService);
   router = inject(Router);
+  dialog = inject(MatDialog);
   usuarios: any[] = [];
 
   currentPage = 0;
@@ -40,6 +43,7 @@ export class ListarUsersComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al listar usuarios:', error);
+        this.mostrarAlerta('Error', 'No se pudo cargar la lista de usuarios', 'error');
       }
     });
   }
@@ -62,12 +66,20 @@ export class ListarUsersComponent implements OnInit {
     if (confirm('¿Está seguro de eliminar este usuario?')) {
       this.userService.eliminar(`${this.API_URL}/${id}`).subscribe({
         next: () => {
+          this.mostrarAlerta('Éxito', 'Usuario eliminado correctamente', 'exito');
           this.listarUsuarios();
         },
         error: (error) => {
           console.error('Error al eliminar usuario:', error);
+          this.mostrarAlerta('Error', 'No se pudo eliminar el usuario', 'error');
         }
       });
     }
+  }
+
+  mostrarAlerta(titulo: string, mensaje: string, tipo:string): void {
+    this.dialog.open(AlertaComponent, {
+      data: { titulo, mensaje, tipo } as AlertaData
+    });
   }
 }
